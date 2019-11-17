@@ -1,22 +1,120 @@
-.App {
+body {
+  font-family: 'Lucida Sans Unicode';
+  background: #faf8ef;
+}
+
+h1 {
+  text-align: center;
+  font-size: 50px;
+}
+
+p {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
+table {
+  margin: 0 auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.buttons {
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 500px;
 }
 
-.App-link {
-  color: #09d3ac;
+.button {
+  background-color: #303030;
+  color: #fff;
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.button:hover {
+  background-color: #50C8FF;
+  color: #303030;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.cell {
+  height: 100px;
+  width: 100px;
+  background-color: #bbada0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-2 {
+  background-color: red;
+  color: #fff;
+}
+
+.color-4 {
+  background-color: #ede0c8;
+  color:#776e65;
+}
+
+.color-8 {
+  background-color: #eee4da;
+  color:#776e65;
+}
+
+.color-16 {
+  background-color: orange;
+  color:#fff;
+}
+
+.color-32 {
+  background-color: yellow;
+}
+
+.color-64 {
+  background-color: blue;
+  color:#fff;
+}
+
+.color-128 {
+  background-color: purple;
+  color:#fff;
+}
+
+.color-256 {
+  background-color: pink;
+  color:#fff;
+}
+
+.color-512 {
+  background-color: #edc850;
+  color:#fff;
+}
+
+.color-1024 {
+  background-color: #f65e3b;
+  color:#fff;
+}
+
+.color-2048 {
+  background-color: green;
+  color:#fff;
+}
+
+.number {
+  font-size: 41px;
+  font-weight: bold;
+}
+
+.score {
+  text-align: center;
+  margin-bottom: 20px;
 }
