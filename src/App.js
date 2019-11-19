@@ -10,12 +10,21 @@ class App extends Component {
       message: null
     }
   }
+  //Creating the board//
   mainBoard() {
-    let board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    let board = [];
+    let cr = 4 // this is for size of the board
+    for (let i = 0; i < cr; i++) {// for setting 
+      const row = [];
+      for (let j = 0; j < cr; j++) {
+        row.push(0);
+      }
+      board.push(row);
+    }
     board = this.placeRandom(this.placeRandom(board));
     this.setState({ board, points: 0, gameOver: false, message: null });
   }
-
+// get all the empty coodinates from board
   getEmptyCoordinates(board) {
     const blankCoordinates = [];
 
@@ -27,13 +36,16 @@ class App extends Component {
 
     return blankCoordinates;
   }
+
+  //Get Random Number 
   randomStartingNumber() {
     const startingNumbers = [2, 4];
     const randomNumber = startingNumbers[Math.floor(Math.random() * startingNumbers.length)];
     return randomNumber;
   }
 
-  placeRandom(board) {
+  // Place random starting number on an empty coordinates
+    placeRandom(board) {
     const blankCoordinates = this.getEmptyCoordinates(board);
     const randomCoordinate = blankCoordinates[Math.floor(Math.random() * blankCoordinates.length)];
     const randomNumber = this.randomStartingNumber();
@@ -41,7 +53,8 @@ class App extends Component {
     return board;
   }
 
-  boardMoved(original, updated) {
+
+    boardMoved(original, updated) {
     return (JSON.stringify(updated) !== JSON.stringify(original)) ? true : false;
   }
 
@@ -115,6 +128,8 @@ class App extends Component {
       }
       board.push(row);
     }
+
+    //add the number and shift to the right
     for (let r = 0; r < board.length; r++) {
       for (let c = board[r].length - 1; c >= 0; c--) {
         if (board[r][c] > 0 && board[r][c] === board[r][c - 1]) {
@@ -127,7 +142,7 @@ class App extends Component {
         }
       }
     }
-
+    // Rotate the board back upRight
     board = this.rotateLeft(board);
 
     return { board, points };
@@ -137,6 +152,7 @@ class App extends Component {
     let board = [];
     let points = 0;
 
+    //shift all numbers to the right
     for (let r = 0; r < inputBoard.length; r++) {
       let row = [];
       for (let c = 0; c < inputBoard[r].length; c++) {
@@ -145,7 +161,7 @@ class App extends Component {
       }
       board.push(row);
     }
-
+    //add number and shift to right
     for (let r = 0; r < board.length; r++) {
       for (let c = board[r].length - 1; c >= 0; c--) {
         if (board[r][c] > 0 && board[r][c] === board[r][c - 1]) {
@@ -167,6 +183,7 @@ class App extends Component {
     let board = [];
     let points = 0;
 
+    //shift all number to the left
     for (let r = 0; r < rotatedRight.length; r++) {
       let row = [];
       for (let c = rotatedRight[r].length - 1; c >= 0; c--) {
@@ -175,7 +192,7 @@ class App extends Component {
       }
       board.push(row);
     }
-
+      //add numbers and shift to left
     for (let r = 0; r < board.length; r++) {
       for (let c = 0; c < board.length; c++) {
         if (board[r][c] > 0 && board[r][c] === board[r][c + 1]) {
@@ -188,8 +205,7 @@ class App extends Component {
         }
       }
     }
-
-    
+    // Rotate board back upRight
     board = this.rotateLeft(board);
 
     return { board, points };
@@ -198,7 +214,7 @@ class App extends Component {
   moveLeft(inputBoard) {
     let board = [];
     let points = 0;
-
+      //shift all numbers to the left
     for (let r = 0; r < inputBoard.length; r++) {
       let row = [];
       for (let c = inputBoard[r].length - 1; c >= 0; c--) {
@@ -207,7 +223,7 @@ class App extends Component {
       }
       board.push(row);
     }
-
+      // add  number and shift to left
     for (let r = 0; r < board.length; r++) {
       for (let c = 0; c < board.length; c++) {
         if (board[r][c] > 0 && board[r][c] === board[r][c + 1]) {
@@ -251,6 +267,7 @@ class App extends Component {
 
     return result;
   }
+  // check to see if there are any moves left
   checkForGameOver(board) {
     let moves = [
       this.boardMoved(board, this.moveUp(board).board),
@@ -289,7 +306,8 @@ class App extends Component {
   render() {
     console.log('check kro', this.state.board);
     return (
-      <div><br/>
+      <div>
+        <h1>2048</h1>
         <div className="button" onClick={() => { this.mainBoard() }}>New Game</div>
           <div className="buttons">
           <div className="button" onClick={() => { this.move('up') }}>Up</div>
@@ -297,7 +315,8 @@ class App extends Component {
           <div className="button" onClick={() => { this.move('down') }}>Down</div>
           <div className="button" onClick={() => { this.move('left') }}>Left</div>
           </div>
-          <p>Use Arrow Keys to move</p>
+          <p>Use Arrow Keys to move and Press N for New Game</p>
+          
         <div className="score">points: {this.state.points}</div>
 
         <table>
