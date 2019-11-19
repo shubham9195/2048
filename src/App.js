@@ -54,7 +54,7 @@ class App extends Component {
     const randomCoordinate = blankCoordinates[Math.floor(Math.random() * blankCoordinates.length)];
     const randomNumber = this.randomStartingNumber();
     board[randomCoordinate[0]][randomCoordinate[1]] = randomNumber;
-    console.log('check board for randomplace', board);
+    console.log('check randomplace number board', board);
     
     return board;
   }
