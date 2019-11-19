@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   //Get Random Number 
-  
+
   randomStartingNumber() {
     const startingNumbers = [2, 4];
     const randomNumber = startingNumbers[Math.floor(Math.random() * startingNumbers.length)];
@@ -63,15 +63,12 @@ class App extends Component {
   }
 
   move(direction) {
-    let existingBoard = this.state.board;
-    if (!this.state.gameOver && !(this.check2048(existingBoard,2048))) {
+    const existingBoard = this.state.board;
+    if (!this.state.gameOver && !(this.check2048(existingBoard, 2048))) {
       if (direction === 'up') {
-        const movedUp = this.moveUp(this.state.board);
-        if (this.boardMoved(this.state.board, movedUp.board)) {
+        const movedUp = this.moveUp(existingBoard);
+        if (this.boardMoved(existingBoard, movedUp.board)) {
           const upWithRandom = this.placeRandom(movedUp.board);
-          if(this.check2048(this.state.board,8)){
-            this.setState({gameOver:true,message: "You win"})
-          }
           if (this.checkForGameOver(upWithRandom)) {
             this.setState({ board: upWithRandom, gameOver: true, message: 'Game over!' });
           } else {
@@ -79,8 +76,8 @@ class App extends Component {
           }
         }
       } else if (direction === 'right') {
-        const movedRight = this.moveRight(this.state.board);
-        if (this.boardMoved(this.state.board, movedRight.board)) {
+        const movedRight = this.moveRight(existingBoard);
+        if (this.boardMoved(existingBoard, movedRight.board)) {
           const rightWithRandom = this.placeRandom(movedRight.board);
 
           if (this.checkForGameOver(rightWithRandom)) {
@@ -90,7 +87,7 @@ class App extends Component {
           }
         }
       } else if (direction === 'down') {
-        const movedDown = this.moveDown(this.state.board);
+        const movedDown = this.moveDown(existingBoard);
         if (this.boardMoved(this.state.board, movedDown.board)) {
           const downWithRandom = this.placeRandom(movedDown.board);
 
@@ -102,7 +99,7 @@ class App extends Component {
         }
       } else if (direction === 'left') {
         const movedLeft = this.moveLeft(this.state.board);
-        if (this.boardMoved(this.state.board, movedLeft.board)) {
+        if (this.boardMoved(existingBoard, movedLeft.board)) {
           const leftWithRandom = this.placeRandom(movedLeft.board);
 
           if (this.checkForGameOver(leftWithRandom)) {
@@ -116,9 +113,9 @@ class App extends Component {
           }
         }
       }
-    } else if(this.check2048(existingBoard,2048)){
-      this.setState({message:"You Win",gameOver:true})
-    }else{
+    } else if (this.check2048(existingBoard, 2048)) {
+      this.setState({ message: "You Win", gameOver: true })
+    } else {
       this.setState({ message: 'Game over. Please start a new game.' });
     }
   }
@@ -245,8 +242,8 @@ class App extends Component {
         }
       }
     }
-    console.log('check board on move left',board);
-    
+    console.log('check board on move left', board);
+
     return { board, points };
   }
 
@@ -288,8 +285,8 @@ class App extends Component {
 
     return (moves.includes(true)) ? false : true;
   }
-  check2048(arr,search){
-    return arr.some(row=>row.includes(search))
+  check2048(arr, search) {
+    return arr.some(row => row.includes(search))
   }
   UNSAFE_componentWillMount() {
     this.mainBoard();
@@ -319,7 +316,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p style={{fontSize:28}}>2048</p>
+        <p style={{ fontSize: 28 }}>2048</p>
         <div className="button" onClick={() => { this.mainBoard() }}>New Game</div>
         <p>Use Arrow Keys to move and Press N for New Game</p>
 
