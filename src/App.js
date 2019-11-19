@@ -289,14 +289,15 @@ class App extends Component {
   render() {
     console.log('check kro', this.state.board);
     return (
-      <div>
+      <div><br/>
         <div className="button" onClick={() => { this.mainBoard() }}>New Game</div>
           <div className="buttons">
           <div className="button" onClick={() => { this.move('up') }}>Up</div>
           <div className="button" onClick={() => { this.move('right') }}>Right</div>
           <div className="button" onClick={() => { this.move('down') }}>Down</div>
           <div className="button" onClick={() => { this.move('left') }}>Left</div>
-        </div>
+          </div>
+          <p>Use Arrow Keys to move</p>
         <div className="score">points: {this.state.points}</div>
 
         <table>
