@@ -35,16 +35,15 @@ class App extends Component {
         }
       }
     }
-    console.log('check blankcoordinates', blankCoordinates);
 
     return blankCoordinates;
   }
 
   //Get Random Number 
+  
   randomStartingNumber() {
     const startingNumbers = [2, 4];
     const randomNumber = startingNumbers[Math.floor(Math.random() * startingNumbers.length)];
-    console.log('check randomnumber', randomNumber);
     return randomNumber;
   }
 
@@ -55,7 +54,6 @@ class App extends Component {
     const randomNumber = this.randomStartingNumber();
     board[randomCoordinate[0]][randomCoordinate[1]] = randomNumber;
     console.log('check randomplace number board', board);
-    
     return board;
   }
 
@@ -65,12 +63,15 @@ class App extends Component {
   }
 
   move(direction) {
-    if (!this.state.gameOver) {
+    let existingBoard = this.state.board;
+    if (!this.state.gameOver && !(this.check2048(existingBoard,2048))) {
       if (direction === 'up') {
         const movedUp = this.moveUp(this.state.board);
         if (this.boardMoved(this.state.board, movedUp.board)) {
           const upWithRandom = this.placeRandom(movedUp.board);
-
+          if(this.check2048(this.state.board,8)){
+            this.setState({gameOver:true,message: "You win"})
+          }
           if (this.checkForGameOver(upWithRandom)) {
             this.setState({ board: upWithRandom, gameOver: true, message: 'Game over!' });
           } else {
@@ -115,7 +116,9 @@ class App extends Component {
           }
         }
       }
-    } else {
+    } else if(this.check2048(existingBoard,2048)){
+      this.setState({message:"You Win",gameOver:true})
+    }else{
       this.setState({ message: 'Game over. Please start a new game.' });
     }
   }
@@ -285,6 +288,9 @@ class App extends Component {
 
     return (moves.includes(true)) ? false : true;
   }
+  check2048(arr,search){
+    return arr.some(row=>row.includes(search))
+  }
   UNSAFE_componentWillMount() {
     this.mainBoard();
     const body = document.querySelector('body');
@@ -311,17 +317,10 @@ class App extends Component {
     }
   }
   render() {
-    console.log('check kro', this.state.board);
     return (
       <div>
-        <h1>2048</h1>
+        <p style={{fontSize:28}}>2048</p>
         <div className="button" onClick={() => { this.mainBoard() }}>New Game</div>
-        <div className="buttons">
-          <div className="button" onClick={() => { this.move('up') }}>Up</div>
-          <div className="button" onClick={() => { this.move('right') }}>Right</div>
-          <div className="button" onClick={() => { this.move('down') }}>Down</div>
-          <div className="button" onClick={() => { this.move('left') }}>Left</div>
-        </div>
         <p>Use Arrow Keys to move and Press N for New Game</p>
 
         <div className="score">points: {this.state.points}</div>
