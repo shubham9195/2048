@@ -46,8 +46,8 @@ table {
 }
 
 .cell {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   background-color: #bbada0;
   border-radius: 5px;
   display: flex;
