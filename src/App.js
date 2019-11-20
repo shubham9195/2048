@@ -64,7 +64,8 @@ class App extends Component {
 
   move(direction) {
     const existingBoard = this.state.board;
-    if (!this.state.gameOver && !(this.check2048(existingBoard, 2048))) {
+    let winNumber= 2048// variable number for winning game
+    if (!this.state.gameOver && !(this.check2048(existingBoard,winNumber ))) {
       if (direction === 'up') {
         const movedUp = this.moveUp(existingBoard);
         if (this.boardMoved(existingBoard, movedUp.board)) {
@@ -285,6 +286,7 @@ class App extends Component {
 
     return (moves.includes(true)) ? false : true;
   }
+  //function to check for 2048 value
   check2048(arr, search) {
     return arr.some(row => row.includes(search))
   }
@@ -323,7 +325,9 @@ class App extends Component {
         <div className="score">points: {this.state.points}</div>
         <h2 style={{textAlign:'center'}}>{this.state.message}</h2>
         <table>
+          <tbody>
           {this.state.board.map((row, i) => (<Row key={i} row={row} />))}
+          </tbody>
         </table>
 
         
