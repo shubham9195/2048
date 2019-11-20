@@ -316,17 +316,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <p style={{ fontSize: 28 }}>2048</p>
+        <h1>2048</h1>
         <div className="button" onClick={() => { this.mainBoard() }}>New Game</div>
         <p>Use Arrow Keys to move and Press N for New Game</p>
 
         <div className="score">points: {this.state.points}</div>
-
+        <h2 style={{textAlign:'center'}}>{this.state.message}</h2>
         <table>
           {this.state.board.map((row, i) => (<Row key={i} row={row} />))}
         </table>
 
-        <p>{this.state.message}</p>
+        
       </div>
     );
 
